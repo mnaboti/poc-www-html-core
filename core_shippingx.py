@@ -43,15 +43,15 @@ for site_id in cluster['site']:
         if subprocess.call(['ping', param, '1', site['ip_address']]) == 0:
             
             # shipping backup script
-            push_backup_script = "rsync " + "-r $WORKSPACE/devops_core_backup.sh " + site['username'] + "@" + site['ip_address'] + ":/var/www"
+            push_backup_script = "rsync " + "-r $WORKSPACE/devops_core_backup.sh " + site['username'] + "@" + site['ip_address'] + ":/var/www/html"
             os.system(push_backup_script)
             
             # backing up application folder [Core & ART]
-            backup_script = "ssh " + site['username'] + "@" + site['ip_address'] + " 'cd /var/www && chmod 777 devops_core_backup.sh && ./devops_core_backup.sh'"
+            backup_script = "ssh " + site['username'] + "@" + site['ip_address'] + " 'cd /var/www/html && chmod 777 devops_core_backup.sh && ./devops_core_backup.sh'"
             os.system(backup_script)
             
             #* ship data to remote site
-            push_core = "rsync " + "-r $WORKSPACE/BHT-Core " + site['username'] + "@" + site['ip_address'] + ":/var/www"
+            push_core = "rsync " + "-r $WORKSPACE/BHT-Core " + site['username'] + "@" + site['ip_address'] + ":/var/www/html"
             os.system(push_core)
 
             # send sms alert
