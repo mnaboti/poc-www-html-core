@@ -44,15 +44,15 @@ for site_id in cluster['site']:
 
             # ship data to remote site
             push_art = "rsync " + "-r $WORKSPACE/BHT-Core/apps/ART/ " + site['username'] + "@" + site[
-                'ip_address'] + ":/var/www/BHT-Core/apps"
+                'ip_address'] + ":/var/www/html/BHT-Core/apps"
             os.system(push_art)
 
             # run setup script
             run_api_script = "ssh " + site['username'] + "@" + site[
-                'ip_address'] + " 'cd /var/www/BHT-Core && ./core_art_setup.sh'"
+                'ip_address'] + " 'cd /var/www/html/BHT-Core && ./core_art_setup.sh'"
             os.system(run_api_script)
             result = Connection("" + site['username'] + "@" + site['ip_address'] + "").run(
-                'cd /var/www/BHT-Core/apps/ART && git describe', hide=True)
+                'cd /var/www/html/BHT-Core/apps/ART && git describe', hide=True)
             msg = "{0.stdout}"
 
             version = msg.format(result).strip()
