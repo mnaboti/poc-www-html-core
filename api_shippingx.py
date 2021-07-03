@@ -26,9 +26,9 @@ def alert(url, params):
     r = requests.post(url, json=params, headers=headers)
     return r
 
-recipients = ["+265998006237", "+265991450316", "+265995246144", "+265992182669"]
+recipients = ["+265998006237", "+265991450316", "+265995246144", "+26599453942", "+265995971632", "+265888027458", "+265999755473", "+265992215557", "+265882680534", "+265997174007"]
 
-cluster = get_xi_data('http://10.44.0.52/sites/api/v1/get_single_cluster/3')
+cluster = get_xi_data('http://10.44.0.52/sites/api/v1/get_single_cluster/20')
 
 for site_id in cluster['site']:
     site = get_xi_data('http://10.44.0.52/sites/api/v1/get_single_site/' + str(site_id))
@@ -44,12 +44,12 @@ for site_id in cluster['site']:
         if subprocess.call(['ping', param, '1', site['ip_address']]) == 0:
 
             # shipping backup script
-            push_backup_script = "rsync " + "-r $WORKSPACE/devops_api_backup.sh " + site['username'] + "@" + site['ip_address'] + ":/var/www"
-            os.system(push_backup_script)
+            #push_backup_script = "rsync " + "-r $WORKSPACE/devops_api_backup.sh " + site['username'] + "@" + site['ip_address'] + ":/var/www"
+            #os.system(push_backup_script)
             
             # backing up application folder [API]
-            backup_script = "ssh " + site['username'] + "@" + site['ip_address'] + " 'cd /var/www && chmod 777 devops_api_backup.sh && ./devops_api_backup.sh'"
-            os.system(backup_script)
+            #backup_script = "ssh " + site['username'] + "@" + site['ip_address'] + " 'cd /var/www && chmod 777 devops_api_backup.sh && ./devops_api_backup.sh'"
+            #os.system(backup_script)
             
             # ship data to remote site
             push_api = "rsync " + "-r $WORKSPACE/BHT-EMR-API " + site['username'] + "@" + site['ip_address'] + ":/var/www"
