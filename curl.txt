@@ -1,1 +1,1 @@
-curl -X POST -u "administrator:1163bbc7b67cf9a11a1a521b927f44e73b" "http://10.44.0.51:8080/job/Xi-Build-Initiator/buildWithParameters"
+curl -X POST -u "administrator:some_key_here" "http://10.44.0.51:8080/job/Xi-Build-Initiator/buildWithParameters"
